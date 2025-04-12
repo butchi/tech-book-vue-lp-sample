@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.5.13/dist/vue.global.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@3.7.14/dist/vuetify.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.5.2/papaparse.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked@15.0.7/lib/marked.umd.min.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/vuetify@3.7.14/dist/vuetify.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <v-app>
+        <v-app-bar color="primary" density="compact" scroll-behavior="collapse">
+          <v-app-bar-title class="mx-0">
+            <v-img
+              class="mx-0"
+              position="left"
+              :src="globalLogo"
+              height="48"
+              :style="{ lineHeight: '48px', paddingLeft: '160px' }"
+            >
+              全脳アーキテクチャ若手の会の10年間を振り返る
+            </v-img>
+          </v-app-bar-title>
+
+          <v-spacer></v-spacer>
+
+          <v-btn
+            class="ma-3"
+            prepend-icon="mdi-calendar"
+            href="https://wbawakate.connpass.com/event/325229/"
+            target="_blank"
+          >
+            参加
+          </v-btn>
+        </v-app-bar>
+        <v-main>
+          <!-- Section 1 Begin -->
+          <v-container
+            class="ma-0 pa-0 w-100"
+            :style="{ position: 'relative', maxWidth: '100%', minHeight: '100vh' }"
+          >
+            <!-- SP -->
+            <div class="d-md-none">
+              <v-parallax
+                class="d-flex align-center bg-white w-100"
+                :src="basePath + '/img/cover.jpg'"
+                min-height="100vh"
+                height="100%"
+              >
+                <div
+                  :style="{
+                    position: 'absolute',
+                    left: 0,
+                    top: 0,
+                    width: '100%',
+                    height: '100%',
+                    background: `linear-gradient(
+                      to right,
+                      rgba(255, 255, 255, .65) 65%,
+                      rgba(255, 255, 255, .25) 100%
+                    )`,
+                  }"
+                ></div>
+                <v-sheet
+                  class="bg-transparent pa-15"
+                  :style="{ position: 'relative' }"
+                >
+                  <h3 class="text-h6 mb-3">{{ contentLi.subTtl }}</h3>
+                  <h2 class="text-h5 mb-3">{{ contentLi.ttl }}</h2>
+                  <p
+                    v-for="line in contentLi.desc.split('\n\n')"
+                    class="mt-3 text-body-1"
+                    v-html="line.split('\n').join('<br>')"
+                  ></p>
+                  <p class="mt-6 font-weight-bold">
+                    <span class="mr-3">全脳アーキテクチャ若手の会 創設者</span>
+                    <span>大澤正彦</span>
+                  </p>
+                  <p class="mt-6">
+                    ※サンプル版では画像と文章を一部差し替えています。
+                  </p>
+                </v-sheet>
+              </v-parallax>
+            </div>
+            <!-- PC -->
+            <div class="d-none d-md-block">
+              <v-parallax
+                class="d-flex align-center bg-white w-100"
+                :src="basePath + '/img/cover.jpg'"
+                min-height="100vh"
+                height="100vh"
+              >
+                <div
+                  :style="{
+                    position: 'absolute',
+                    left: 0,
+                    top: 0,
+                    width: '100%',
+                    height: '100%',
+                    background: `linear-gradient(
+                      to right,
+                      rgba(255, 255, 255, .65) 65%,
+                      rgba(255, 255, 255, .25) 100%
+                    )`,
+                  }"
+                ></div>
+                <v-sheet
+                  class="bg-transparent pa-15"
+                  :style="{ position: 'relative' }"
+                >
+                  <h3 class="text-h5 mb-6">{{ contentLi.subTtl }}</h3>
+                  <h2 class="text-h3 mb-6">{{ contentLi.ttl }}</h2>
+                  <p
+                    v-for="line in contentLi.desc.split('\n\n')"
+                    class="mt-3"
+                    v-html="line.split('\n').join('<br>')"
+                  ></p>
+                  <p class="mt-6 font-weight-bold">
+                    <span class="mr-3">全脳アーキテクチャ若手の会 創設者</span>
+                    <span>大澤正彦</span>
+                  </p>
+                  <p class="mt-6">
+                    ※サンプル版では画像と文章を一部差し替えています。
+                  </p>
+                </v-sheet>
+              </v-parallax>
+            </div>
+          </v-container>
+          <!-- Section 2 Timeline -->
+          <v-container
+            class="ma-0 pa-0 w-100"
+            :style="{ position: 'relative', maxWidth: '100%' }"
+          >
+            <v-row class="ma-0 pa-0">
+              <v-col class="ma-0 pa-0">
+                <div
+                  :style="{
+                    position: 'absolute',
+                    left: 0,
+                    top: 0,
+                    width: '100%',
+                    height: '100vh',
+                  }"
+                >
+                  <div
+                    v-for="(event, i) in eventArr"
+                    :style="{
+                      position: 'relative',
+                      top: 0,
+                      left: 0,
+                      width: '100%',
+                      height: '100%',
+                      clipPath: 'inset(0)',
+                    }"
+                  >
+                    <v-sheet
+                      color="black"
+                      :style="{
+                        position: 'fixed',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100vh',
+                        backgroundImage: `url(
+                          ${basePath}/img/history/${event.year}-${
+                          ('00' + event.month).slice(-2)
+                        }.jpg`,
+                        backgroundSize: 'cover',
+                        backgroundRepeat: 'no-repeat',
+                        backgroundPosition: 'center center',
+                      }"
+                    >
+                      <v-sheet
+                        :style="{
+                          position: 'absolute',
+                          top: 0,
+                          left: 0,
+                          width: '100%',
+                          height: '100%',
+                          background: `linear-gradient(
+                            to right,
+                            rgba(0, 0, 0, .65) 65%,
+                            rgba(0, 0, 0, .25) 100%
+                          )`,
+                        }"
+                      >
+                      </v-sheet>
+                    </v-sheet>
+                  </div>
+                </div>
+                <v-timeline
+                  class="pt-15"
+                  align="start"
+                  side="end"
+                  :style="{ rowGap: 0 }"
+                >
+                  <v-timeline-item
+                    v-for="(event, i) in eventArr"
+                    :key="i"
+                    dot-color="indigo-darken-1"
+                    size="small"
+                    height="100vh"
+                    :data-idx="i"
+                  >
+                    <template v-slot:opposite>
+                      <!-- PC -->
+                      <div
+                        :class="`
+                          d-none d-sm-flex pt-1
+                          headline font-weight-bold text-indigo-lighten-4
+                        `"
+                        v-text="event.year + '年' + event.month + '月'"
+                      ></div>
+                    </template>
+                    <div>
+                      <!-- SP -->
+                      <div
+                        :class="`
+                          d-flex d-sm-none pt-1 mb-3
+                          headline font-weight-bold text-indigo-lighten-4
+                        `"
+                        v-text="event.year + '年' + event.month + '月'"
+                      ></div>
+                      <div :style="{ maxWidth: '80%' }">
+                        <h2
+                          :class="`
+                            mt-1 mb-4
+                            headlinefont-weight-light text-indigo-lighten-4
+                          `"
+                          color="white"
+                        >
+                          {{ event.ttl }}
+                        </h2>
+                        <div
+                          class="text-indigo-lighten-4"
+                          v-html="event.desc"
+                        ></div>
+                        <h3
+                          v-if="event.news"
+                          class="text-indigo-lighten-3 mt-6"
+                        >
+                          AIニュース
+                        </h3>
+                        <p
+                          class="text-indigo-lighten-3 ml-5"
+                          v-html="event.news"
+                        ></p>
+                      </div>
+                    </div>
+                  </v-timeline-item>
+                </v-timeline>
+              </v-col>
+            </v-row>
+          </v-container>
+          <!-- Section 3 Event -->
+          <v-container>
+            <v-row class="ma-0 pa-0">
+              <v-col class="ma-0 pa-0">
+                <v-card
+                  class="mx-auto my-12"
+                  :style="{
+                    backgroundImage: `linear-gradient(
+                      to bottom,
+                      rgba(0, 0, 0, .65) 0%,
+                      rgba(255, 255, 255, 1) 25%),
+                      url(${basePath}/img/cover-fade.jpg)
+                    `,
+                    backgroundPosition: 'center top, center top',
+                    backgroundSize: '100%, 100%',
+                    backgroundRepeat: 'no-repeat, no-repeat',
+                  }"
+                >
+                  <v-card-text>
+                    <h2 class="text-white">
+                      <v-icon left>mdi-calendar</v-icon>
+                      【WBA若手 10周年記念】AIの10年間を振り返る
+                    </h2>
+                    <p class="mt-3 text-white">
+                      全脳アーキテクチャ若手の会は当時大学生だったメンバーを中心に発足し、それから大きく成長していきました。
+                      それから10年間の月日が流れ、AIの研究開発の状況も大きく進展しました。
+                      本イベントは、当会の設立10周年を記念イベントとして、これまでの10年、現在、それから今後の10年間について、改めて議論をします。
+                    </p>
+                    <v-divider class="my-3"></v-divider>
+                    <h3 class="mb-3 text-white">スケジュール</h3>
+                    <!-- SP -->
+                    <div class="d-md-none">
+                      <div
+                        v-for="lineup in lineupArr"
+                        class="mx-auto"
+                        icon="mdi-clock-outline"
+                      >
+                        <v-card
+                          class="mt-3"
+                          :style="{
+                            backgroundColor: 'rgba(255, 255, 255, 0.65)'
+                          }"
+                        >
+                          <v-card-text>
+                            <h4
+                              v-if="lineup.title"
+                              v-html="lineup.title"
+                              class="text-h6"
+                            ></h4>
+                            <div
+                              v-if="lineup.mdHtml"
+                              v-html="lineup.mdHtml"
+                              class="mt-3 lineup-text"
+                            ></div>
+                          </v-card-text>
+                        </v-card>
+                      </div>
+                      <h3 class="mt-3">イベント詳細</h3>
+                      <p class="mt-3">
+                        <span class="font-weight-bold">開催日</span>:
+                        2024年8月17日 13:00 〜 17:00
+                      </p>
+                      <p class="mt-3">
+                        <span class="font-weight-bold">イベントURL</span>:
+                        <a
+                          href="https://wbawakate.connpass.com/event/325229/"
+                          target="_blank"
+                          >https://wbawakate.connpass.com/event/325229/</a
+                        >
+                      </p>
+                      <div v-html="appendixHtml" class="appendix-text"></div>
+                    </div>
+                    <!-- PC -->
+                    <div class="d-none d-md-block">
+                      <v-timeline
+                        align-top
+                        side="end"
+                        dot-color="blue-darken-1"
+                      >
+                        <v-timeline-item
+                          v-for="lineup in lineupArr"
+                          class="mx-auto"
+                          icon="mdi-clock-outline"
+                        >
+                          <v-card
+                            :style="{
+                              backgroundColor: 'rgba(255, 255, 255, 0.65)'
+                            }"
+                          >
+                            <v-card-title
+                              v-if="lineup.title"
+                              v-html="lineup.title"
+                            ></v-card-title>
+                            <v-card-text
+                              v-if="lineup.mdHtml"
+                              v-html="lineup.mdHtml"
+                              class="lineup-text"
+                            ></v-card-text>
+                          </v-card>
+                        </v-timeline-item>
+                      </v-timeline>
+                      <h3 class="mt-3">イベント詳細</h3>
+                      <p class="mt-3">
+                        <span class="font-weight-bold">開催日</span>:
+                        2024年8月17日 13:00 〜 17:00
+                      </p>
+                      <p class="mt-3">
+                        <span class="font-weight-bold">イベントURL</span>:
+                        <a
+                          href="https://wbawakate.connpass.com/event/325229/"
+                          target="_blank"
+                          >https://wbawakate.connpass.com/event/325229/</a
+                        >
+                      </p>
+                      <div v-html="appendixHtml" class="appendix-text"></div>
+                    </div>
+                  </v-card-text>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                      class="ma-3"
+                      variant="outlined"
+                      size="x-large"
+                      color="primary"
+                      prepend-icon="mdi-calendar"
+                      text="イベント参加"
+                      href="https://wbawakate.connpass.com/event/325229/"
+                      target="_blank"
+                    ></v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-main>
+      </v-app>
+    </div>
+
+    <script>
+      const { createApp, ref } = Vue
+      const { createVuetify } = Vuetify
+
+      const vuetify = createVuetify()
+
+      const app = createApp({
+        setup() {
+          const basePath = '.'
+
+          const contentLi = {
+            ttl: '全脳アーキテクチャ若手の会の10年間を振り返る (サンプル版)',
+            subTtl:
+              'WBA若手10周年記念「AIの10年間を振り返る」イベント開催特別企画',
+            desc: `全脳アーキテクチャ若手の会 (WBA若手) は、たった10分のプレゼンテーションから始まりました。
+ドラえもんや鉄腕アトムを見ながら育った私たちの手で、彼らのような人工知能を創りたい。
+
+もし彼らのような人工知能を創れるとすれば、私たちの世代かもしれない。
+
+だからこそ今から私たちの世代がネットワークを広げ、お互いに刺激しあい、
+継続して協力し合うことで、これからさらに10年後の日本を人工知能大国にしたい。
+
+この時の私の主張はこんなところでした。その想いは私の想像をはるかに超えて、
+多くの人に賛同していただき、この全脳アーキテクチャ若手の会を立ち上げることができました。
+2024年7月現在、Facebookグループでは2500人を超える方々に参加していただいています。
+
+それでは、全脳アーキテクチャ若手の会がAIとともに歩んだ10年間を振り返ってみましょう。
+`,
+          }
+
+          const eventCsvStr = `index,year,month,ttl,desc,news
+1,2014,10,勉強会第1回開催,"<h3>ディープラーニングの概要</h3>
+<ul>
+  <li>ディープラーニングができるまで</li>
+  <li>ディープラーニングができること</li>
+  <li>ディープラーニングの可能性</li>
+</ul>",<ul><li>2014年1月: GoogleがDeepMindを買収。</li></ul>
+2,2015,9,WBAIハッカソン,"<h3>主催</h3>
+<p>NPO 全脳アーキテクチャー・イニシアティブ（WBAI）</p>
+<p>全脳アーキテクチャ若手の会</p>
+<h3>協賛</h3>
+<p>産総研人工知能研究センター，電通大，アルパカ</p>
+<h3>後援</h3>
+<p>ドワンゴ人工知能研究所，ドワンゴ</p>",
+3,2015,12,第1回 WBA若手の会 女子会,"<ul>
+  <li>理工系の学生やエンジニア・研究者の方など計8名が参加</li>
+  <li>WBA若手に携わっていたり興味がある方々の共通の話題を持つ女子が集合</li>
+  <li>普段使っているプログラミング言語の話や研究の話や若手の会のメンバーの話など</li>
+</ul>",<ul><li>2015年12月: OpenAIが設立される。</li></ul>
+4,2016,1,2016 WBA若手の会 新年会,,
+5,2016,4,2016 WBA若手の会 春の交流会,,<ul><li>2016年3月: AlphaGoが韓国のプロ囲碁棋士イ・セドルに勝利。</li></ul>
+6,2017,5,人工知能 + 認知科学 + 神経科学 異分野交流会,"<p>人工知能を作る為に、多様な人材の交流が必要だと考えられます。</p>
+<p>異分野交流会は、様々な分野の多様な人材に全脳アーキテクチャ・人工知能周辺技術が面白いという事を伝え、全脳アーキテクチャ若手の会の取り組みを多くの人に知ってもらい若手の会の裾野を広げる事を目的として行われました。</p>",<ul><li>2017年5月: AlphaGoが中国のトップ棋士柯潔に勝利。</li></ul>
+7,2017,8,夏の交流会 with HAIT,<p>東大の人工知能団体HAITとのコラボレーション企画。</p>,
+8,2017,10,関西異分野交流会,<p>「ヒトの理解」という難題に対して特定の分野のバックグラウンドを持つ若手が一堂に会し登壇。</p>,
+9,2017,11,ミニドラハッカソン,<p>ドラえもんのように、まるで人のように扱ってもらえるロボットの実現の第一歩として「ミニドラ」を作るハッカソン。</p>,<ul><li>2017年12月: AlphaZeroが登場し、わずか数時間の自己学習でチェス、将棋、囲碁でトップレベルのプレイを達成。</li></ul>
+10,2018,5,2018 WBA若手の会 春の交流会,,<ul><li>2018年5月: Google Duplexが発表され、自然な対話で電話予約が可能なことをデモンストレーション。</li></ul>
+11,2018,11,2018 WBA若手の会 秋の大交流会,,<ul><li>2018年10月: BERT（Bidirectional Encoder Representations from Transformers）がGoogleによって発表。</li></ul>
+12,2020,3,AIとコトバ ~自然言語処理のこれまでとこれから~,"<p>自然言語処理に関する様々のトピックのトークを行いました。</p>
+<p>諸般の事情によりオンライン開催となりましたが、常時40人、のべ60人程度の方に参加いただきました。</p>","<ul>
+  <li>2021年2月: OpenAIがDALL-Eを発表し、自然言語の説明から画像を生成する能力を示す。</li>
+  <li>2021年6月: GitHub Copilotが発表され、プログラミング支援AIとして注目される。</li>
+</ul>"
+13,2020,6,勉強会 第46回開催,"<p>「ポストCOVID-19時代を生き抜くためのテクノロジー」というトークテーマで4名の登壇者にオンラインで発表していただきました。</p>
+<p>カジュアルトーク初のオンライン開催にもかかわらず18名の方に視聴していただき、質疑応答では視聴者の方からチャット機能より質問をいただき活発な議論となりました。</p>","<ul>
+  <li>2023年3月: OpenAIがGPT-4をリリースし、さらに高い自然言語理解能力を示す。</li>
+  <li>2024年4月: MetaがLlama 3を発表し、オープンソースAIモデルの競争が激化。</li>
+</ul>`
+
+          const eventArr = Papa.parse(eventCsvStr, {
+            header: true,
+          }).data.reverse()
+
+          const lineupArr = [
+            {
+              title: '13:00 ~ 13:50 これまでの10年編',
+              mdTxt: `全脳アーキテクチャ若手の会の立ち上げを行ったうちの3人が、当会やAIとともに歩んだ10年間を振り返ります。
+設立当時学生だった私たちは、大人たちからたくさんのことを教えられ、自分たちで一生懸命に考え、仲間たちと議論してきました。
+「囲碁AIが人間を越えるのは10年以上先？」「身体性がないと知能は成立しない？」「プログラミングができるAIができたらシンギュラリティ？」「生成モデルは識別モデルに敵わない？」
+10年分のAIに対する議論を改めて掘り起こし、これからの10年を考える準備をしていきましょう。
+
+#### モデレーター
+
+**大澤 正彦**
+
+全脳アーキテクチャ若手の会 初代 代表
+
+#### パネリスト
+
+**島田 大樹**
+
+全脳アーキテクチャ若手の会 初代 副代表
+
+<br>
+
+**芦原 佑太**
+
+全脳アーキテクチャ若手の会 初代 社会人支部 代表`,
+            },
+            {
+              title: '14:00 ~ 14:50 現在編',
+              mdTxt: `大規模言語モデルが急速に成長を遂げる現在を、改めて考察し、過去と未来をつなぐ足場がための議論をしていきます。
+ディープラーニングが流行し始めたころに創設された全脳アーキテクチャ若手の会は、10年分の流行とともに歩んできました。
+今までAIと関わり続けてきた方も、最近AIと関わり始めた方も、冷静に現代の流れを読み取れるよう、情報の整理をしていきます。`,
+            },
+            {
+              title: '15:00 ~ 15:50 これからの10年編',
+              mdTxt: `これからの未来を担う若手が中心に、これからの夢を語ります。
+予測不可能な時代だからこそ、一人ひとりの挑戦的な夢が未来を形作る大きな可能性です。
+たくさんの若き情熱を感じて、未来へ歩む糧としていきましょう。
+
+#### モデレーター
+
+**金 智源**
+
+#### パネリスト
+
+**川島 遼介**
+
+**中屋 悠資**
+`,
+            },
+            {
+              title: '16:00 ~ 17:00 ネットワーキング',
+            },
+          ]
+
+          lineupArr.forEach((lineup) => {
+            if (!lineup.mdTxt) return
+
+            lineup.mdHtml = marked.parse(lineup.mdTxt)
+          })
+
+          const appendixMd = `### 登壇者プロフィール
+
+**大澤 正彦**
+
+2014年全脳アーキテクチャ若手の会の立ち上げメンバーで、2017年まで代表。2020年 慶應義塾大学大学院理工学研究科後期博士課程修了。日本大学文理学部准教授/次世代社会研究センター（RINGS）センター長。研究テーマはHuman-Agent Interaction(HAI), 全脳アーキテクチャなどを通した、人と関わる汎用人工知能の実現。
+
+<br>
+
+**島田 大樹**
+
+2014年全脳アーキテクチャ若手の会の立ち上げメンバーで、2017年まで副代表。2017年法政大学大学院理工学研究科修士課程修了。2022年ロチェスター大学客員研究員。現在、ソニーグループ株式会社で画像認識技術の研究開発をリード。
+
+<br>
+
+**芦原 佑太**
+
+2014年全脳アーキテクチャ若手の会の立ち上げメンバー、同団体社会人支部代表。2016年電気通信大学大学院博士前期課程修了。株式会社クロスコンパス、株式会社Glia Computingを経て、現在、日本大学文理学部　助手、東京大学大学院　学術専門職員、株式会社N.ジェン 人工知能技術開発本部。専門は機械学習。
+
+<br>
+
+(所属は2024年8月時点のものです。)
+
+### 運営委員
+
+実行委員長 金 智源
+`
+
+          const appendixHtml = marked.parse(appendixMd)
+
+          const globalLogo = './img/global-logo.png'
+
+          return {
+            basePath,
+            contentLi,
+            eventArr,
+            lineupArr,
+            appendixHtml,
+            globalLogo,
+          }
+        },
+      })
+
+      app.use(vuetify).mount('#app')
+    </script>
+  </body>
+</html>
