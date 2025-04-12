@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@3.7.14/dist/vuetify.min.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/vuetify@3.7.14/dist/vuetify.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="app">
+      <v-app>
+        <v-main>
+          <v-container>
+            <v-card>
+              <v-card-title>Card Title</v-card-title>
+              <v-card-text>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos
+                blanditiis tenetur
+              </v-card-text>
+              <v-card-actions>
+                <v-btn color="primary">Button</v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-container>
+        </v-main>
+      </v-app>
+    </div>
+
+    <script>
+      const { createApp, ref } = Vue
+      const { createVuetify } = Vuetify
+
+      const vuetify = createVuetify()
+
+      const app = createApp()
+
+      app.use(vuetify).mount('#app')
+    </script>
+  </body>
+</html>
