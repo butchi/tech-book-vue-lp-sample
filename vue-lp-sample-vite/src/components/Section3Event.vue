@@ -105,7 +105,7 @@ const appendixHtml = marked.parse(appendixMd)
                   >https://wbawakate.connpass.com/event/325229/</a
                 >
               </p>
-              <div v-html="appendixHtml" class="appendix-text"></div>
+              <div v-html="appendixHtml" class="mt-5"></div>
             </div>
             <!-- PC -->
             <div class="d-none d-md-block">
@@ -149,7 +149,7 @@ const appendixHtml = marked.parse(appendixMd)
                   >https://wbawakate.connpass.com/event/325229/</a
                 >
               </p>
-              <div v-html="appendixHtml" class="appendix-text"></div>
+              <div v-html="appendixHtml" class="mt-5"></div>
             </div>
           </v-card-text>
           <v-card-actions>
@@ -170,23 +170,3 @@ const appendixHtml = marked.parse(appendixMd)
     </v-row>
   </v-container>
 </template>
-
-<style>
-.lineup-text h4 {
-  font-size: 1.2em;
-  margin-top: 1em;
-}
-
-.lineup-text h4 + p {
-  margin-top: 0.5em;
-}
-
-.appendix-text h3 {
-  font-size: 1.5em;
-  margin-top: 1em;
-}
-
-.appendix-text h3 + p {
-  margin-top: 1em;
-}
-</style>

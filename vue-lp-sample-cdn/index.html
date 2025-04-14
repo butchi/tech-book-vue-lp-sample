@@ -16,7 +16,6 @@
       href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div id="app">
@@ -316,7 +315,7 @@
                             <div
                               v-if="lineup.mdHtml"
                               v-html="lineup.mdHtml"
-                              class="mt-3 lineup-text"
+                              class="mt-3"
                             ></div>
                           </v-card-text>
                         </v-card>
@@ -334,7 +333,7 @@
                           >https://wbawakate.connpass.com/event/325229/</a
                         >
                       </p>
-                      <div v-html="appendixHtml" class="appendix-text"></div>
+                      <div v-html="appendixHtml" class="mt-5"></div>
                     </div>
                     <!-- PC -->
                     <div class="d-none d-md-block">
@@ -360,7 +359,6 @@
                             <v-card-text
                               v-if="lineup.mdHtml"
                               v-html="lineup.mdHtml"
-                              class="lineup-text"
                             ></v-card-text>
                           </v-card>
                         </v-timeline-item>
@@ -378,7 +376,7 @@
                           >https://wbawakate.connpass.com/event/325229/</a
                         >
                       </p>
-                      <div v-html="appendixHtml" class="appendix-text"></div>
+                      <div v-html="appendixHtml" class="mt-5"></div>
                     </div>
                   </v-card-text>
                   <v-card-actions>
@@ -537,6 +535,8 @@
 
           const appendixMd = `### 登壇者プロフィール
 
+<br>
+
 **大澤 正彦**
 
 2014年全脳アーキテクチャ若手の会の立ち上げメンバーで、2017年まで代表。2020年 慶應義塾大学大学院理工学研究科後期博士課程修了。日本大学文理学部准教授/次世代社会研究センター（RINGS）センター長。研究テーマはHuman-Agent Interaction(HAI), 全脳アーキテクチャなどを通した、人と関わる汎用人工知能の実現。
@@ -557,7 +557,11 @@
 
 (所属は2024年8月時点のものです。)
 
+<br>
+
 ### 運営委員
+
+<br>
 
 実行委員長 金 智源
 `
