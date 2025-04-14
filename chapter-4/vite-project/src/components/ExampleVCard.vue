@@ -6,13 +6,22 @@
     <v-row>
       <v-col>
         <v-card>
-          <v-card-title>Card Title</v-card-title>
+          <v-card-title>カードコンポーネント</v-card-title>
           <v-card-text>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos
-            blanditiis tenetur
+            V-cardコンポーネントは、見出し、テキスト、画像、アクション用に、シンプルなインターフェイスを提供する汎用性の高いコンポーネントです。
           </v-card-text>
           <v-card-actions>
-            <v-btn color="primary">Button</v-btn>
+            <v-btn
+              color="primary"
+              variant="elevated"
+            >
+              OK
+            </v-btn>
+            <v-btn
+              variant="elevated"
+            >
+              キャンセル
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
