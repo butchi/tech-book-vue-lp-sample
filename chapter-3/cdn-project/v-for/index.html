@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@3.7.14/dist/vuetify.min.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/vuetify@3.7.14/dist/vuetify.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="app">
+      <v-app>
+        <v-main>
+          <v-container>
+            <v-row>
+              <v-col v-for="(item, index) in itemArr" key="index">
+                <v-btn :color="item.color">{{ item.message }}</v-btn>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-main>
+      </v-app>
+    </div>
+
+    <script>
+      const { createApp, ref } = Vue
+      const { createVuetify } = Vuetify
+
+      const vuetify = createVuetify()
+
+      const app = createApp({
+        setup() {
+          const itemArr = ref([
+            {
+              color: 'red',
+              message: '赤いボタン',
+            },
+            {
+              color: 'blue',
+              message: '青いボタン',
+            },
+            {
+              color: 'green',
+              message: '緑のボタン',
+            },
+          ])
+          return { itemArr }
+        },
+      })
+
+      app.use(vuetify).mount('#app')
+    </script>
+  </body>
+</html>

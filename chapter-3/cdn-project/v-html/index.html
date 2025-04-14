@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@3.7.14/dist/vuetify.min.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/vuetify@3.7.14/dist/vuetify.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="app">
+      <v-app>
+        <p>HTMLテキストをそのまま表示: {{ rawHtml }}</p>
+        <p>v-htmlを使ってHTMLを埋め込み: <span v-html="rawHtml"></span></p>
+      </v-app>
+    </div>
+
+    <script>
+      const { createApp } = Vue
+      const { createVuetify } = Vuetify
+
+      const vuetify = createVuetify()
+
+      const app = createApp({
+        setup() {
+          const rawHtml = '<span style="color: red">赤いテキスト</span>'
+
+          return { rawHtml }
+        },
+      })
+
+      app.use(vuetify).mount('#app')
+    </script>
+  </body>
+</html>

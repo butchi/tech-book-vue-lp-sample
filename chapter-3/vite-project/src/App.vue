@@ -1,16 +1,27 @@
 <script setup>
-import ButtonCounter from './components/ButtonCounter.vue'
-
-const exampleMessage = 'Hello, world!'
-const textColor = '#ff0000'
+import ExampleComponent from './components/ExampleComponent.vue'
+import ExampleBind from './components/ExampleBind.vue'
+import ExampleVFor from './components/ExampleVFor.vue'
+import ExampleVIf from './components/ExampleVIf.vue'
+import ExampleVHtml from './components/ExampleVHtml.vue'
 </script>
 
 <template>
-  <h1>Vueサンプル</h1>
+  <v-app>
+    <v-main>
+      <v-container>
+        <h1>Vueサンプル</h1>
 
-  <h2>コンポーネントの例</h2>
-  <ButtonCounter />
+        <ExampleComponent />
 
-  <h2>データバインディングの例</h2>
-  <p :style="{ color: textColor }">{{ exampleMessage }}</p>
+        <ExampleBind />
+
+        <ExampleVFor />
+
+        <ExampleVIf />
+
+        <ExampleVHtml />
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
