@@ -22,8 +22,6 @@ import globalLogo from './assets/global-logo.png'
         </v-img>
       </v-app-bar-title>
 
-      <v-spacer></v-spacer>
-
       <v-btn
         class="ma-3"
         prepend-icon="mdi-calendar"
