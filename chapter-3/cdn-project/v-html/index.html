@@ -18,8 +18,20 @@
   <body>
     <div id="app">
       <v-app>
-        <p>HTMLテキストをそのまま表示: {{ rawHtml }}</p>
-        <p>v-htmlを使ってHTMLを埋め込み: <span v-html="rawHtml"></span></p>
+        <v-container>
+          <v-row>
+            <h1>Vuetifyサンプル</h1>
+          </v-row>
+          <v-row>
+            <h2>v-htmlのサンプル</h2>
+          </v-row>
+          <v-row>
+            <v-col>
+              <p>HTMLテキストをそのまま表示: {{ rawHtml }}</p>
+              <p>v-htmlを使ってHTMLを埋め込み: <span v-html="rawHtml"></span></p>
+            </v-col>
+          </v-row>
+        </v-container>
       </v-app>
     </div>
 

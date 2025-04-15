@@ -21,6 +21,12 @@
         <v-main>
           <v-container>
             <v-row>
+              <h1>Vuetifyサンプル</h1>
+            </v-row>
+            <v-row>
+              <h2>v-forのサンプル</h2>
+            </v-row>
+            <v-row>
               <v-col v-for="(item, index) in itemArr" key="index">
                 <v-btn :color="item.color">{{ item.message }}</v-btn>
               </v-col>
